@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DreamTravel</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI;
+scroll-behavior:smooth;
+}
+
+body{
+background:#0f2027;
+color:white;
+transition:0.5s;
+}
+
+/* Dark / Light Mode */
+.light{
+background:#f4f4f4;
+color:black;
+}
+
+/* Navbar */
+nav{
+display:flex;
+justify-content:space-between;
+padding:15px 50px;
+background:rgba(255,255,255,0.1);
+position:fixed;
+width:100%;
+z-index:100;
+}
+
+nav ul{
+display:flex;
+gap:20px;
+list-style:none;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+}
+
+/* Hero Slider */
+.slider{
+height:90vh;
+background-size:cover;
+background-position:center;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:45px;
+animation:fade 10s infinite;
+}
+
+@keyframes fade{
+0%{background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470');}
+33%{background-image:url('https://images.unsplash.com/photo-1502602898657-3e91760cbb34');}
+66%{background-image:url('https://images.unsplash.com/photo-1537996194471-e657df975ab4');}
+100%{background-image:url('https://images.unsplash.com/photo-1501785888041-af3ef285b470');}
+}
+
+/* Cards */
+.container{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:25px;
+padding:60px;
+}
+
+.card{
+width:280px;
+background:rgba(255,255,255,0.1);
+border-radius:15px;
+overflow:hidden;
+transition:0.4s;
+}
+
+.card:hover{
+transform:scale(1.05);
+}
+
+.card img{
+width:100%;
+height:180px;
+object-fit:cover;
+}
+
+.card h3,p{
+padding:10px;
+}
+
+.card button{
+margin:10px;
+padding:8px;
+border:none;
+border-radius:15px;
+background:#00f5d4;
+cursor:pointer;
+}
+
+/* Packages */
+.packages{
+display:flex;
+justify-content:center;
+gap:25px;
+padding:40px;
+}
+
+.package{
+width:250px;
+background:rgba(255,255,255,0.1);
+padding:20px;
+border-radius:15px;
+text-align:center;
+}
+
+/* Popup */
+.popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+display:none;
+align-items:center;
+justify-content:center;
+}
+
+.popup-content{
+background:white;
+color:black;
+padding:30px;
+border-radius:15px;
+width:300px;
+}
+
+.popup input, textarea{
+width:100%;
+margin:10px 0;
+padding:8px;
+}
+
+/* Toggle Button */
+.toggle{
+cursor:pointer;
+}
+
+/* Map */
+iframe{
+width:100%;
+height:300px;
+border:none;
+}
+
+/* Footer */
+footer{
+text-align:center;
+padding:20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav>
+<h2>DreamTravel</h2>
+<ul>
+<li><a href="#dest">Destinations</a></li>
+<li><a href="#packages">Packages</a></li>
+<li><a href="#map">Map</a></li>
+<li class="toggle" onclick="toggleMode()">🌙</li>
+<li onclick="openLogin()">Login</li>
+</ul>
+</nav>
+
+<!-- Hero Slider -->
+<div class="slider">
+Explore The World ✈️
+</div>
+
+<!-- Destinations -->
+<section id="dest">
+<h2 style="text-align:center">Popular Destinations</h2>
+
+<div class="container">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34">
+<h3>Paris</h3>
+<p>City of love and lights</p>
+<button onclick="showDetails('Paris')">Details</button>
+<button onclick="openBooking('Paris')">Book</button>
+</div>
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4">
+<h3>Bali</h3>
+<p>Tropical paradise</p>
+<button onclick="showDetails('Bali')">Details</button>
+<button onclick="openBooking('Bali')">Book</button>
+</div>
+
+</div>
+</section>
+
+<!-- Packages -->
+<section id="packages">
+<h2 style="text-align:center">Travel Packages</h2>
+
+<div class="packages">
+<div class="package">
+<h3>Basic</h3>
+<p>$500</p>
+<p>3 Days Stay</p>
+</div>
+
+<div class="package">
+<h3>Premium</h3>
+<p>$900</p>
+<p>5 Days Stay</p>
+</div>
+
+<div class="package">
+<h3>Luxury</h3>
+<p>$1500</p>
+<p>7 Days Stay</p>
+</div>
+</div>
+</section>
+
+<!-- Map -->
+<section id="map">
+<h2 style="text-align:center">Destination Map</h2>
+<iframe src="https://maps.google.com/maps?q=paris&t=&z=13&ie=UTF8&iwloc=&output=embed"></iframe>
+</section>
+
+<!-- Booking Popup -->
+<div class="popup" id="booking">
+<div class="popup-content">
+<h3>Book Trip</h3>
+<input type="text" placeholder="Your Name">
+<input type="email" placeholder="Email">
+<textarea placeholder="Message"></textarea>
+<button onclick="closePopup()">Submit</button>
+</div>
+</div>
+
+<!-- Login Popup -->
+<div class="popup" id="login">
+<div class="popup-content">
+<h3>Login</h3>
+<input type="text" placeholder="Username">
+<input type="password" placeholder="Password">
+<button onclick="closePopup()">Login</button>
+</div>
+</div>
+
+<footer>
+© 2026 DreamTravel
+</footer>
+
+<script>
+
+/* Booking Popup */
+function openBooking(place){
+document.getElementById("booking").style.display="flex";
+}
+
+function closePopup(){
+document.querySelectorAll(".popup").forEach(p=>p.style.display="none");
+}
+
+/* Login Popup */
+function openLogin(){
+document.getElementById("login").style.display="flex";
+}
+
+/* Destination Details */
+function showDetails(place){
+alert(place + " is a beautiful destination with amazing attractions!");
+}
+
+/* Dark Mode */
+function toggleMode(){
+document.body.classList.toggle("light");
+}
+
+</script>
+
+</body>
+</html>
